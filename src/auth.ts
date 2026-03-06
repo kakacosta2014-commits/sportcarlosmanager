@@ -37,14 +37,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   callbacks: {
     jwt: async ({ token, user }) => {
       if (user) {
-        // @ts-expect-error custom
+        // @ts-ignore custom session field
         token.role = (user as any).role;
         token.name = user.name;
       }
       return token;
     },
     session: async ({ session, token }) => {
-      // @ts-expect-error custom
+      // @ts-ignore custom session field
       session.user.role = token.role;
       session.user.name = token.name as string;
       return session;

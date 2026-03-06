@@ -27,7 +27,11 @@ export async function createTask(formData: FormData) {
   });
   if (!parsed.success) throw new Error("VALIDATION_ERROR");
 
-  const tags = (parsed.data.tags ?? "").split(",").map(x=>x.trim()).filter(Boolean);
+  const tags = (parsed.data.tags ?? "")
+    .split(",")
+    .map((x) => x.trim())
+    .filter(Boolean)
+    .join(", ");
 
   await prisma.task.create({
     data: {
